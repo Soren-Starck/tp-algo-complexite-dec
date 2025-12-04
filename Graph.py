@@ -6,6 +6,7 @@ class Graph:
         self.graph = defaultdict(set)
         self.directed = directed
         self.vertices = set()
+        self.colors = {}
     
     def add_vertex(self, vertex):
         self.vertices.add(vertex)
@@ -21,6 +22,9 @@ class Graph:
     
     def get_neighbors(self, vertex):
         return list(self.graph.get(vertex, set()))
+
+    def get_vertex_degree(self, vertex):
+        return len(self.get_neighbors(vertex))
     
     def get_vertices(self):
         return list(self.vertices)
@@ -38,6 +42,20 @@ class Graph:
                     edges.append((u, v))
         return edges
     
+    def get_vertex_color(self, vertex):
+        return self.colors.get(vertex, None)
+    
+    def get_chromatic_number(self):
+        chromatic_number = 0
+        used_colors = set()
+        for color in self.colors.values():
+            if color is not None and color not in used_colors:
+                used_colors.add(color)
+                chromatic_number += 1
+        return chromatic_number
+    
+    def set_vertex_color(self, vertex, color):
+        self.colors[vertex] = color
+
     def __repr__(self):
         return f"Graph(directed={self.directed}, vertices={len(self.vertices)}, edges={len(self.get_edges())})"
-

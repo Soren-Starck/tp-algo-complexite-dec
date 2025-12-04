@@ -1,18 +1,23 @@
 from Graph import Graph
-
+from Algorithms import Algorithms
 
 g = Graph(directed=False)
 
-g.add_edge('A', 'B')
-g.add_edge('A', 'C')
-g.add_edge('B', 'C')
-g.add_edge('B', 'D')
-g.add_edge('C', 'D')
+edges = [
+    ('A', 'B'), ('A', 'C'), 
+    ('B', 'D'), ('B', 'E'),
+    ('C', 'D'), ('C', 'E'),
+    ('D', 'E')
+]
+
+for u, v in edges:
+    g.add_edge(u, v)
 
 print(f"Graph: {g}")
 print(f"Vertices: {g.get_vertices()}")
-print(f"\nEdges:")
+print("\nEdges:")
 for u, v in g.get_edges():
-    print(f"  {u} --> {v}")
+    print(f"  {u} -- {v}")
 
-print(f"\nNeighbors of 'B': {g.get_neighbors('B')}")
+algorithms = Algorithms(g)
+print(algorithms.greedy_coloring())
